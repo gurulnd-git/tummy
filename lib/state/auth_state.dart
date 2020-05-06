@@ -237,10 +237,10 @@ class AuthState extends AppState {
   }
 
 
-  Future<AuthStatus> checkCarousel() async {
+  Future<bool> checkCarousel() async {
     prefs = await SharedPreferences.getInstance();
     bool seen = (prefs.getBool('seen') ?? false);
-    return seen ? AuthStatus.NOT_DETERMINED : AuthStatus.SHOW_CAROUSEL;
+    return seen;
   }
 
 }

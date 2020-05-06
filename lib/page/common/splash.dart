@@ -29,8 +29,15 @@ class _SplashPageState extends State<SplashPage> {
   void timer() async {
     Future.delayed(Duration(seconds: 2)).then((_) async {
       var state = Provider.of<AuthState>(context, listen: false);
-      state.authStatus = await state.checkCarousel();
-      state.getCurrentUser();
+
+      bool seen = await state.checkCarousel();
+      if (!seen) {
+        state.authStatus = AuthStatus.SHOW_CAROUSEL;
+        state.loading = false;
+      } else {
+        await state.getCurrentUser();
+      }
+
     });
   }
 
@@ -75,26 +82,16 @@ class _SplashPageState extends State<SplashPage> {
     );
   }
 
-  checkAuthState() {
-    var state = Provider.of<AuthState>(context);
-    if (state.authStatus == AuthStatus.SHOW_CAROUSEL) {
-        return WalkthroughScreen();
-      } else if(state.authStatus == AuthStatus.NOT_DETERMINED) {
-        return _body();
-      } else if(state.authStatus == AuthStatus.NOT_LOGGED_IN) {
-        return WelcomePage();
-      } else if(state.authStatus == AuthStatus.LOGGED_IN) {
-        return Scaffold(
-            appBar: AppBar(title: Text("test3o234")));
-      } else {
-        return _body();
-      }
-    }
-
-
   @override
   Widget build(BuildContext context) {
     var state = Provider.of<AuthState>(context);
-    return checkAuthState();
+    return state.authStatus == AuthStatus.SHOW_CAROUSEL
+        ? WalkthroughScreen()
+        : state.authStatus == AuthStatus.NOT_DETERMINED
+        ? _body()
+        : state.authStatus == AuthStatus.NOT_LOGGED_IN
+        ? WelcomePage()
+        : Scaffold(
+        appBar: AppBar(title: Text("test3o234"),));
   }
 }
