@@ -2,12 +2,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yummy_tummy/helper/enum.dart';
 import 'package:yummy_tummy/model/user.dart';
 import 'package:yummy_tummy/state/app_state.dart';
 
 class AuthState extends AppState {
-  AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
+  SharedPreferences prefs;
+  AuthStatus authStatus =  AuthStatus.NOT_DETERMINED;
   bool isSignInWithGoogle = false;
   FirebaseUser user;
   String userId;
@@ -235,7 +237,10 @@ class AuthState extends AppState {
   }
 
 
-
-
+  Future<AuthStatus> checkCarousel() async {
+    prefs = await SharedPreferences.getInstance();
+    bool seen = (prefs.getBool('seen') ?? false);
+    return seen ? AuthStatus.NOT_DETERMINED : AuthStatus.SHOW_CAROUSEL;
+  }
 
 }

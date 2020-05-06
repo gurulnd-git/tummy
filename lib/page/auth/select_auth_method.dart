@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yummy_tummy/helper/enum.dart';
 import 'package:yummy_tummy/page/auth/signin.dart';
 import 'package:yummy_tummy/page/auth/signup.dart';
 import 'package:yummy_tummy/state/auth_state.dart';
+import 'package:yummy_tummy/widgets/newWidget/custom_flat_button.dart';
 
 class WelcomePage extends StatefulWidget {
   WelcomePage({Key key}) : super(key: key);
@@ -13,93 +13,98 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-  Widget _submitButton() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 15),
-      width: MediaQuery.of(context).size.width,
-      child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        color: Color.fromRGBO(29, 162, 240, 0.5),
-        onPressed: () {
-          var state = Provider.of<AuthState>(context,listen: false);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Signup(loginCallback: state.getCurrentUser),
-            ),
-          );
-        },
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-        child: Text('Create account'),
-      ),
-    );
-  }
-
-  Widget _body() {
-    return SafeArea(
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 40,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width - 80,
-              height: 40,
-              child: Image.asset('assets/images/icon-480.png'),
-            ),
-            Spacer(),
-            Text(
-              'See what\'s happening in the world right now.'
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            _submitButton(),
-            Spacer(),
-            Wrap(
-              alignment: WrapAlignment.center,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Have an account already?'
-                ),
-                InkWell(
-                  onTap: () {
-                    var state = Provider.of<AuthState>(context,listen: false);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            SignIn(loginCallback: state.getCurrentUser),
-                      ),
-                    );
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 2, vertical: 10),
-                    child: Text(' Log in'),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(height: 20)
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    var state = Provider.of<AuthState>(context);
     return Scaffold(
-      body: state.authStatus == AuthStatus.NOT_LOGGED_IN ||
-              state.authStatus == AuthStatus.NOT_DETERMINED
-          ? _body()
-          : Scaffold(
-            body: Text("Welcome to the demo app"),
+      body: new ListView(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 60.0),
+            child: Icon(
+              Icons.phone_iphone,
+              color: Color.fromRGBO(212, 20, 15, 1.0),
+              size: 125.0,
+            ),
+          ), Padding(
+            padding: const EdgeInsets.only(top: 35.0, right: 15.0, left: 15.0),
+            child: Text(
+              "Say Hello To Your New App!",
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Color.fromRGBO(212, 20, 15, 1.0),
+                decoration: TextDecoration.none,
+                fontSize: 24.0,
+                fontWeight: FontWeight.w700,
+                fontFamily: "OpenSans",
+              ),
+            ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              "You've just saved a week of development and headaches.",
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+                decoration: TextDecoration.none,
+                fontSize: 15.0,
+                fontWeight: FontWeight.w300,
+                fontFamily: "OpenSans",
+              ),
+            ),
+          ),
+          Padding(
+            padding:
+            const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
+            child: CustomFlatButton(
+              title: "Log In",
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+              textColor: Colors.white,
+              onPressed: () {
+                //Navigator.of(context).pushNamed("/signin");
+                var state = Provider.of<AuthState>(context,listen: false);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        SignIn(loginCallback: state.getCurrentUser),
+                  ),
+                );
+              },
+              splashColor: Colors.black12,
+              borderColor: Color.fromRGBO(212, 20, 15, 1.0),
+              borderWidth: 0,
+              color: Color.fromRGBO(212, 20, 15, 1.0),
+            ),
+          ),
+          Padding(
+            padding:
+            const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
+            child: CustomFlatButton(
+              title: "Sign Up",
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+              textColor: Colors.black54,
+              onPressed: () {
+                var state = Provider.of<AuthState>(context,listen: false);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                    builder: (context) =>
+                    Signup(loginCallback: state.getCurrentUser)));
+              },
+              splashColor: Colors.black12,
+              borderColor: Colors.black12,
+              borderWidth: 2,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
+
+
