@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:yummy_tummy/helper/enum.dart';
 import 'package:yummy_tummy/page/auth/select_auth_method.dart';
 import 'package:yummy_tummy/page/auth/walkthrough_carousel.dart';
+import 'package:yummy_tummy/page/home_page.dart';
 import 'package:yummy_tummy/state/app_state.dart';
 import 'package:yummy_tummy/state/auth_state.dart';
 import 'package:yummy_tummy/widgets/custom_widgets.dart';
@@ -91,7 +92,6 @@ class _SplashPageState extends State<SplashPage> {
         ? _body()
         : state.authStatus == AuthStatus.NOT_LOGGED_IN
         ? WelcomePage()
-        : Scaffold(
-        appBar: AppBar(title: Text("test3o234"),));
+        : HomePage();
   }
 }
