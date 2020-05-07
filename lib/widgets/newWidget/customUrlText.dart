@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:yummy_tummy/helper/theme.dart';
 import 'package:yummy_tummy/helper/utility.dart';
 class UrlText extends StatelessWidget {
   final String text;
@@ -42,7 +43,7 @@ class UrlText extends StatelessWidget {
         widgets.add(_LinkTextSpan(
             text: result.text,
             style:
-                urlStyle != null ? urlStyle : TextStyle(color: Colors.blue)));
+                urlStyle != null ? urlStyle : TextStyle(color: YummyTummyColor.appRed)));
       } else {
         widgets.add(TextSpan(
             text: result.text,

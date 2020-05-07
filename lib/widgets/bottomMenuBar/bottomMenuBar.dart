@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yummy_tummy/helper/constants.dart';
+import 'package:yummy_tummy/helper/theme.dart';
 import 'package:yummy_tummy/state/app_state.dart';
 import 'package:yummy_tummy/widgets/bottomMenuBar/tabItem.dart';
 import 'package:yummy_tummy/widgets/custom_widgets.dart';
@@ -62,7 +63,7 @@ class _BottomMenubarState extends State<BottomMenubar>{
                   alignment: Alignment(0, 0),
                   icon: isCustomIcon ? customIcon(context,icon:icon,size: 22, istwitterIcon: true, isEnable: index == state.pageIndex) :
                   Icon(iconData,
-                   color:index == state.pageIndex ? Theme.of(context).primaryColor: Theme.of(context).textTheme.caption.color,
+                   color:index == state.pageIndex ? YummyTummyColor.appRed: Theme.of(context).textTheme.caption.color,
                   ),
                   onPressed: () {
                       setState(() {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yummy_tummy/helper/constants.dart';
 import 'package:yummy_tummy/helper/enum.dart';
+import 'package:yummy_tummy/helper/theme.dart';
 import 'package:yummy_tummy/model/user.dart';
 import 'package:yummy_tummy/state/auth_state.dart';
 import 'package:yummy_tummy/widgets/custom_loader.dart';
@@ -89,7 +90,7 @@ class _SignupState extends State<Signup> {
             borderRadius: BorderRadius.all(
               Radius.circular(30.0),
             ),
-            borderSide: BorderSide(color: Colors.blue),
+            borderSide: BorderSide(color: YummyTummyColor.appRed),
           ),
           contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         ),
@@ -103,7 +104,7 @@ class _SignupState extends State<Signup> {
       width: MediaQuery.of(context).size.width,
       child: FlatButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        color: Colors.blue,
+        color: YummyTummyColor.appRed,
         onPressed: _submitForm,
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
         child: Text('Sign up', style: TextStyle(color: Colors.white)),
@@ -169,6 +170,7 @@ class _SignupState extends State<Signup> {
           context: context,
           style: TextStyle(fontSize: 20),
         ),
+        backgroundColor: YummyTummyColor.appRed,
         centerTitle: true,
       ),
       body: SingleChildScrollView(child: _body(context)),

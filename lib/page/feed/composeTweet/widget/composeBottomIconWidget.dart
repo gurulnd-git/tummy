@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yummy_tummy/helper/constants.dart';
+import 'package:yummy_tummy/helper/theme.dart';
 import 'package:yummy_tummy/widgets/custom_widgets.dart';
 
 class ComposeBottomIconWidget extends StatefulWidget {
@@ -24,7 +25,7 @@ class _ComposeBottomIconWidgetState extends State<ComposeBottomIconWidget> {
  
  @override
  void initState() { 
-   wordCountColor = Colors.blue;
+   wordCountColor = YummyTummyColor.appRed;
    widget.textEditingController.addListener(updateUI);
    super.initState();
  }
@@ -39,7 +40,7 @@ class _ComposeBottomIconWidgetState extends State<ComposeBottomIconWidget> {
             } else if (widget.textEditingController.text.length >= 280) {
               wordCountColor = Theme.of(context).errorColor;
             } else {
-              wordCountColor = Colors.blue;
+              wordCountColor = YummyTummyColor.appRed;
             }
            }
    });
@@ -61,7 +62,7 @@ class _ComposeBottomIconWidgetState extends State<ComposeBottomIconWidget> {
               icon: customIcon(context,
                   icon: AppIcon.image,
                   istwitterIcon: true,
-                  iconColor: Colors.blue)),
+                  iconColor: YummyTummyColor.appRed)),
           IconButton(
               onPressed: () {
                 setImage(ImageSource.camera);
@@ -69,7 +70,7 @@ class _ComposeBottomIconWidgetState extends State<ComposeBottomIconWidget> {
               icon: customIcon(context,
                   icon: AppIcon.camera,
                   istwitterIcon: true,
-                  iconColor: Colors.blue)),
+                  iconColor: YummyTummyColor.appRed)),
           Expanded(
               child: Align(
             alignment: Alignment.centerRight,

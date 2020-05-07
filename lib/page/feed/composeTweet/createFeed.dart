@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yummy_tummy/helper/constants.dart';
+import 'package:yummy_tummy/helper/theme.dart';
 import 'package:yummy_tummy/helper/utility.dart';
 import 'package:yummy_tummy/model/feed.dart';
 import 'package:yummy_tummy/model/user.dart';
@@ -26,7 +27,7 @@ class _CreateFeedPageState extends State<CreateFeedPage> {
 
   @override
   void initState() {
-    wordCountColor = Colors.blue;
+    wordCountColor = YummyTummyColor.appRed;
     _textEditingController = TextEditingController();
     super.initState();
   }
@@ -50,7 +51,7 @@ class _CreateFeedPageState extends State<CreateFeedPage> {
             } else if (_textEditingController.text.length >= 280) {
               wordCountColor = Theme.of(context).errorColor;
             } else {
-              wordCountColor = Colors.blue;
+              wordCountColor = YummyTummyColor.appRed;
             }
           }
         });

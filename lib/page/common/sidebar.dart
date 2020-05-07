@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:yummy_tummy/helper/constants.dart';
 import 'package:yummy_tummy/state/auth_state.dart';
 import 'package:yummy_tummy/widgets/custom_widgets.dart';
+import 'package:yummy_tummy/helper/theme.dart';
 
 class SidebarMenu extends StatefulWidget {
   const SidebarMenu({Key key, this.scaffoldKey}) : super(key: key);
@@ -26,6 +27,7 @@ class _SidebarMenuState extends State<SidebarMenu> {
           child: Center(
             child: Text(
               'Login to continue',
+              style: onPrimaryTitleText,
             ),
           ),
         ),
@@ -70,6 +72,7 @@ class _SidebarMenuState extends State<SidebarMenu> {
                       ? customIcon(context,
                       icon: AppIcon.blueTick,
                       istwitterIcon: true,
+                      iconColor: AppColor.primary,
                       size: 18,
                       paddingIcon: 3)
                       : SizedBox(
@@ -79,10 +82,12 @@ class _SidebarMenuState extends State<SidebarMenu> {
               ),
               subtitle: customText(
                 state.userModel.userName,
-
+                style: onPrimarySubTitleText.copyWith(
+                    color: Colors.black54, fontSize: 15),
               ),
               trailing: customIcon(context,
                   icon: AppIcon.arrowDown,
+                  iconColor: AppColor.primary,
                   paddingIcon: 20),
             ),
 
@@ -91,7 +96,6 @@ class _SidebarMenuState extends State<SidebarMenu> {
       );
     }
   }
-
 
   ListTile _menuListRowButton(String title,
       {Function onPressed, int icon, bool isEnable = false}) {
@@ -109,48 +113,15 @@ class _SidebarMenuState extends State<SidebarMenu> {
           context,
           icon: icon,
           size: 25,
+          iconColor: isEnable ? AppColor.darkGrey : AppColor.lightGrey,
         ),
       ),
       title: customText(
         title,
         style: TextStyle(
-          fontSize: 20,
+          fontSize: 15,
+          color: isEnable ? AppColor.secondary : AppColor.lightGrey,
         ),
-      ),
-    );
-  }
-
-  Positioned _footer() {
-    return Positioned(
-      bottom: 0,
-      right: 0,
-      left: 0,
-      child: Column(
-        children: <Widget>[
-          Divider(height: 0),
-          Row(
-            children: <Widget>[
-              SizedBox(
-                width: 10,
-                height: 45,
-              ),
-              customIcon(context,
-                  icon: AppIcon.bulbOn,
-                  istwitterIcon: true,
-                  size: 25,
-                  iconColor: Colors.blue),
-              Spacer(),
-              Image.asset(
-                "assets/images/qr.png",
-                height: 25,
-              ),
-              SizedBox(
-                width: 10,
-                height: 45,
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }
@@ -185,10 +156,8 @@ class _SidebarMenuState extends State<SidebarMenu> {
                       icon: AppIcon.profile, isEnable: true, onPressed: () {
                         _navigateTo('ProfilePage');
                       }),
-                  _menuListRowButton('Lists', icon: AppIcon.lists),
-                  _menuListRowButton('Bookamrks', icon: AppIcon.bookmark),
-                  _menuListRowButton('Moments', icon: AppIcon.moments),
-                  _menuListRowButton('Twitter ads', icon: AppIcon.twitterAds),
+                  _menuListRowButton('My Listings', icon: AppIcon.lists),
+                  _menuListRowButton('Bookamarks', icon: AppIcon.bookmark),
                   Divider(),
                   _menuListRowButton('Settings and privacy', isEnable: true,
                       onPressed: () {
@@ -201,7 +170,6 @@ class _SidebarMenuState extends State<SidebarMenu> {
                 ],
               ),
             ),
-            _footer()
           ],
         ),
       ),

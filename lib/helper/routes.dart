@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yummy_tummy/helper/custom_route.dart';
+import 'package:yummy_tummy/helper/theme.dart';
 import 'package:yummy_tummy/page/auth/select_auth_method.dart';
 import 'package:yummy_tummy/page/auth/signin.dart';
 import 'package:yummy_tummy/page/auth/signup.dart';
@@ -50,7 +51,8 @@ class Routes {
   static Route onUnknownRoute(RouteSettings settings){
      return MaterialPageRoute(
           builder: (_) => Scaffold(
-                appBar: AppBar(title: customTitleText(settings.name.split('/')[1]),centerTitle: true,),
+                appBar: AppBar(title: customTitleText(settings.name.split('/')[1]),centerTitle: true,
+                backgroundColor: YummyTummyColor.appRed,),
                 body: Center(
                   child: Text('${settings.name.split('/')[1]} Comming soon..'),
                 ),

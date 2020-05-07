@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:yummy_tummy/helper/enum.dart';
+import 'package:yummy_tummy/helper/theme.dart';
 import 'package:yummy_tummy/page/auth/select_auth_method.dart';
 import 'package:yummy_tummy/page/auth/walkthrough_carousel.dart';
 import 'package:yummy_tummy/page/home_page.dart';
@@ -45,40 +47,17 @@ class _SplashPageState extends State<SplashPage> {
 
 
   Widget _body() {
-    var height = 150.0;
     return Container(
-      height: fullHeight(context),
-      width: fullWidth(context),
-      child: Container(
-        height: height,
-        width: height,
-        alignment: Alignment.center,
-        child: Container(
-          padding: EdgeInsets.all(50),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(10),
-            ),
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              Platform.isIOS
-                  ? CupertinoActivityIndicator(
-                radius: 35,
-              )
-                  : CircularProgressIndicator(
-                strokeWidth: 2,
-              ),
-              Image.asset(
-                'assets/images/icon-480.png',
-                height: 30,
-                width: 30,
-              )
-            ],
-          ),
-        ),
+      color: Colors.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Center(
+              child: LoadingBouncingGrid.square(
+                backgroundColor: YummyTummyColor.appRed,
+              ))
+        ],
       ),
     );
   }

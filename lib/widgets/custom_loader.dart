@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:yummy_tummy/widgets/custom_widgets.dart';
 
 class CustomLoader {
@@ -70,32 +71,16 @@ class CustomScreenLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: backgroundColor,
-      child: Container(
-        height: height,
-        width: height,
-        alignment: Alignment.center,
-        child: Container(
-          padding: EdgeInsets.all(50),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(10))),
-          child: Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              Platform.isIOS
-                  ? CupertinoActivityIndicator(radius: 35,)
-                  : CircularProgressIndicator(
-                      strokeWidth: 2,
-                    ),
-              Image.asset(
-                'assets/images/icon-480.png',
-                height: 30,
-                width: 30,
-              )
-            ],
-          ),
-        ),
+      color: Colors.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Center(
+              child: LoadingBouncingGrid.square(
+                backgroundColor: Theme.of(context).accentColor,
+              ))
+        ],
       ),
     );
   }

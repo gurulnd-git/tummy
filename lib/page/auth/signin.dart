@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:yummy_tummy/helper/theme.dart';
 import 'package:yummy_tummy/helper/utility.dart';
 import 'package:yummy_tummy/state/auth_state.dart';
 import 'package:yummy_tummy/widgets/custom_loader.dart';
+import 'package:yummy_tummy/widgets/newWidget/title_text.dart';
 
 class SignIn extends StatefulWidget {
   final VoidCallback loginCallback;
@@ -75,7 +77,7 @@ class _SignInState extends State<SignIn> {
           border: InputBorder.none,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(30.0)),
-              borderSide: BorderSide(color: Colors.blue)),
+              borderSide: BorderSide(color: YummyTummyColor.appRed)),
           contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         ),
       ),
@@ -93,7 +95,7 @@ class _SignInState extends State<SignIn> {
       child: Text(
         title,
         style: TextStyle(
-            color: Colors.blue, fontWeight: FontWeight.bold),
+            color: YummyTummyColor.appRed, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -104,10 +106,10 @@ class _SignInState extends State<SignIn> {
       margin: EdgeInsets.symmetric(vertical: 35),
       child: FlatButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        color: Colors.blue,
+        color: YummyTummyColor.appRed,
         onPressed: _emailLogin,
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-        child: Text('Email Login'),
+        child: TitleText('Login', color: Colors.white, fontSize: 15,),
       ),
     );
   }
@@ -196,7 +198,8 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('Sign in')),
+        title: Text('Sign in'),
+        backgroundColor: YummyTummyColor.appRed,),
       body: _body(context),
     );
   }

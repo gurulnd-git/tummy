@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yummy_tummy/helper/constants.dart';
+import 'package:yummy_tummy/helper/theme.dart';
 Widget customTitleText(String title, {BuildContext context}){
   return Text(title ?? '',style: TextStyle(color: Colors.black87,fontFamily: 'HelveticaNeue', fontWeight:FontWeight.w900, fontSize: 20),);
 }
@@ -39,7 +40,7 @@ Widget customIcon(BuildContext context,{int icon, bool isEnable = false,double s
              IconData(
                icon,fontFamily: istwitterIcon ? 'TwitterIcon' : isFontAwesomeRegular ? 'AwesomeRegular' : isFontAwesomeSolid ? 'AwesomeSolid' : 'Fontello'),
                size: size,color: isEnable 
-               ? Theme.of(context).primaryColor :
+               ? YummyTummyColor.appRed :
                 iconColor,),
   );
 }
@@ -226,7 +227,7 @@ Widget emptyListWidget(BuildContext context, String title,{String subTitle,Strin
    }
    else{
      return Center(
-       child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),),
+       child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(YummyTummyColor.appRed),),
      );
    }
  }
@@ -263,7 +264,7 @@ Widget emptyListWidget(BuildContext context, String title,{String subTitle,Strin
                  onTap: onPressed,
                   child: Padding(
                     padding: padding,
-                    child: Text(!isExpanded ? 'more...' : 'Less...',style: TextStyle(color: Colors.blue,fontSize: 14),),
+                    child: Text(!isExpanded ? 'more...' : 'Less...',style: TextStyle(color: YummyTummyColor.appRed,fontSize: 14),),
                   )
                 )
                 ,
