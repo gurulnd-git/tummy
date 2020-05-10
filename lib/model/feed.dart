@@ -1,5 +1,6 @@
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yummy_tummy/model/user.dart';
 
 class FeedModel {
@@ -131,6 +132,18 @@ class FeedModel {
         }
         return isValid;
   }
+
+  factory FeedModel.fromFirestore(DocumentSnapshot document) {
+    Map data = document.data;
+
+    return FeedModel(
+      key: document.documentID,
+      description: data['description'],
+      likeCount: data['likeCount'],
+      createdAt: data['createdAt']
+    );
+  }
+
 }
 class LikeList{
   String key;
@@ -145,4 +158,5 @@ class LikeList{
       'userId':userId
     };
   }
+
 }

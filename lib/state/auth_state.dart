@@ -201,7 +201,7 @@ class AuthState extends AppState {
       if (user != null) {
         authStatus = AuthStatus.LOGGED_IN;
         userId = user.uid;
-        //  getProfileUser();
+        _userModel = getUserModelFromFirebaseUser(user);
       } else {
         authStatus = AuthStatus.NOT_LOGGED_IN;
       }
@@ -241,6 +241,17 @@ class AuthState extends AppState {
     prefs = await SharedPreferences.getInstance();
     bool seen = (prefs.getBool('seen') ?? false);
     return seen;
+  }
+
+  User getUserModelFromFirebaseUser(FirebaseUser fbuser) {
+    User user = new User();
+    user.displayName = fbuser.displayName;
+    user.key = fbuser.uid;
+    user.email = fbuser.email;
+    user.isVerified = fbuser.isEmailVerified;
+    user.profilePic = fbuser.photoUrl;
+    user.contact = fbuser.phoneNumber;
+    return user;
   }
 
 }

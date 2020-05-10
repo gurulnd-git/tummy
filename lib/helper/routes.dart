@@ -5,6 +5,7 @@ import 'package:yummy_tummy/page/auth/select_auth_method.dart';
 import 'package:yummy_tummy/page/auth/signin.dart';
 import 'package:yummy_tummy/page/auth/signup.dart';
 import 'package:yummy_tummy/page/common/splash.dart';
+import 'package:yummy_tummy/page/feed/composeTweet/createFeed.dart';
 import 'package:yummy_tummy/widgets/custom_widgets.dart';
 
 class Routes {
@@ -35,7 +36,7 @@ class Routes {
       case "SignIn":return CustomRoute<bool>(builder:(BuildContext context)=> SignIn()); 
       case "SignUp":return CustomRoute<bool>(builder:(BuildContext context)=> Signup()); 
       // case "ForgetPasswordPage":return CustomRoute<bool>(builder:(BuildContext context)=> ForgetPasswordPage());
-      // case "CreateFeedPage":return CustomRoute<bool>(builder:(BuildContext context)=> CreateFeedPage(),);
+       case "CreateFeedPage":return CustomRoute<bool>(builder:(BuildContext context)=> CreateFeedPage(),);
       // case "EditProfile":return CustomRoute<bool>(builder:(BuildContext context)=> EditProfilePage());
       // case "SettingsAndPrivacyPage":return CustomRoute<bool>(builder:(BuildContext context)=> SettingsAndPrivacyPage(),); 
       // case "AccountSettingsPage":return CustomRoute<bool>(builder:(BuildContext context)=> AccountSettingsPage(),); 

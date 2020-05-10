@@ -8,6 +8,7 @@ import 'package:yummy_tummy/model/feed.dart';
 import 'package:yummy_tummy/model/user.dart';
 import 'package:yummy_tummy/page/feed/composeTweet/widget/composeBottomIconWidget.dart';
 import 'package:yummy_tummy/page/feed/composeTweet/widget/composeTweetImage.dart';
+import 'package:yummy_tummy/page/feed/composeTweet/widget/custom_app_bar.dart';
 import 'package:yummy_tummy/state/auth_state.dart';
 import 'package:yummy_tummy/state/feed_state.dart';
 import 'package:yummy_tummy/widgets/custom_widgets.dart';
@@ -59,7 +60,7 @@ class _CreateFeedPageState extends State<CreateFeedPage> {
       maxLines: null,
       decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: 'What\'s happening?',
+          hintText: 'Write Your Recipe here',
           hintStyle: TextStyle(fontSize: 18)),
     );
   }
@@ -70,8 +71,8 @@ class _CreateFeedPageState extends State<CreateFeedPage> {
         _textEditingController.text.length > 280) {
       return;
     }
-    var state = Provider.of<FeedState>(context);
-    var authState = Provider.of<AuthState>(context);
+    var state = Provider.of<FeedState>(context,listen: false);
+    var authState = Provider.of<AuthState>(context,listen: false);
     if (state.isBusy) {
       return;
     }
@@ -104,7 +105,7 @@ class _CreateFeedPageState extends State<CreateFeedPage> {
 //        },
 //      );
     } else {
-      //state.createTweet(_model);
+      state.createTweet(_model, true);
     }
     // state.isBusy = false;
     kScreenloader.hideLoader();
@@ -117,11 +118,17 @@ class _CreateFeedPageState extends State<CreateFeedPage> {
       context,
     );
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
+      appBar: CustomAppBar(
         title: customTitleText(
           '',
         ),
+        onActionPressed: _submitButton,
+        isCrossButton: true,
+        submitButtonText: 'Post',
+        isSubmitDisable: _textEditingController.text == null ||
+            _textEditingController.text.isEmpty ||
+            _textEditingController.text.length > 280 ||
+            Provider.of<FeedState>(context).isBusy,
 
       ),
       body: Container(

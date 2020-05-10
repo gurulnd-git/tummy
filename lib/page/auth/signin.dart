@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:yummy_tummy/helper/theme.dart';
 import 'package:yummy_tummy/helper/utility.dart';
 import 'package:yummy_tummy/state/auth_state.dart';
+import 'package:yummy_tummy/state/feed_state.dart';
 import 'package:yummy_tummy/widgets/custom_loader.dart';
 import 'package:yummy_tummy/widgets/newWidget/title_text.dart';
 
@@ -191,6 +192,7 @@ class _SignInState extends State<SignIn> {
         print('Unable to login');
       }
     });
+    Provider.of<FeedState>(context, listen: false).getDataFromDatabase();
   }
 
   @override

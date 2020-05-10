@@ -1,11 +1,10 @@
-import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:yummy_tummy/helper/constants.dart';
 import 'package:yummy_tummy/helper/theme.dart';
 import 'package:yummy_tummy/model/feed.dart';
 import 'package:yummy_tummy/state/auth_state.dart';
 import 'package:yummy_tummy/state/feed_state.dart';
+import 'package:yummy_tummy/widgets/card/card_widget.dart';
 import 'package:yummy_tummy/widgets/custom_loader.dart';
 import 'package:yummy_tummy/widgets/custom_widgets.dart';
 import 'package:yummy_tummy/widgets/newWidget/emptyList.dart';
@@ -54,22 +53,9 @@ class _FeedPageState extends State<FeedPage> {
   }
 
   Widget _body() {
-    var state = Provider.of<FeedState>(context);
-    var authstate = Provider.of<AuthState>(context);
-    List<FeedModel> list;
-    if (!state.isBusy && state.feedlist != null && state.feedlist.isNotEmpty) {
-      list = state.feedlist.where((x) {
-        if (x.user.userId == authstate.userId )
-            {
-          return true;
-        } else {
-          return false;
-        }
-      }).toList();
-      if (list.isEmpty) {
-        list = null;
-      }
-    }
+    var state = Provider.of<FeedState>(context,listen: true);
+    List<FeedModel> list = state.feedlist;
+
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
@@ -106,16 +92,14 @@ class _FeedPageState extends State<FeedPage> {
               'When new Tweet added, they\'ll show up here \n Tap tweet button to add new',
             ))
             : SliverList(
+          // Card List
           delegate: SliverChildListDelegate(
-            list.map(
-                  (model) {
+            list.map((model) {
                 return Container(
                   color: Colors.white,
-//                            child: Tweet(
-//                              model: model,
-//                              trailing: TweetBottomSheet().tweetOptionIcon(
-//                                  context, model, TweetType.Tweet),
-//                            ),
+                  child: CardWidget(
+                    model: model,
+                  ),
                 );
               },
             ).toList(),
@@ -138,8 +122,8 @@ class _FeedPageState extends State<FeedPage> {
           child: RefreshIndicator(
             key: _refreshIndicatorKey,
             onRefresh: () async {
-              var state = Provider.of<FeedState>(context);
-             // state.getDataFromDatabase();
+              var state = Provider.of<FeedState>(context,listen: false);
+              state.getDataFromDatabase();
               return Future.value(true);
             },
             child: _body(),
