@@ -7,9 +7,8 @@ import 'package:yummy_tummy/widgets/card/card_bottom.dart';
 import 'package:yummy_tummy/widgets/custom_widgets.dart';
 import 'package:yummy_tummy/widgets/newWidget/customUrlText.dart';
 import 'package:provider/provider.dart';
-import 'package:yummy_tummy/widgets/card/widgets/cardIconsRow.dart';
 
-import 'widgets/cardImage.dart';
+import 'card_image.dart';
 
 class CardWidget extends StatelessWidget {
   final FeedModel model;
@@ -29,62 +28,17 @@ class CardWidget extends StatelessWidget {
         SizedBox(width: 10),
         Container(
           width: 40,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                ListTile(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                  leading: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context)
-                          .pushNamed('/ProfilePage/' + model?.userId);
-                    },
-                    child: customImage(context, model.user?.profilePic),
-                  ),
-                  title: Row(
-                    children: <Widget>[
-                      UrlText(
-                        text: model.user?.displayName,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      SizedBox(width: 3),
-                  ( model.user != null &&model.user?.isVerified )
-                          ? customIcon(
-                        context,
-                        icon: AppIcon.blueTick,
-                        istwitterIcon: true,
-                        iconColor: AppColor.primary,
-                        size: 13,
-                        paddingIcon: 3,
-                      )
-                          : SizedBox(width: 0),
-                      SizedBox(
-                        width: ( model.user != null && model.user?.isVerified) ? 5 : 0,
-                      ),
-                    ],
-                  ),
-                  subtitle:
-                  customText('${model.user?.userName}', style: userNameStyle),
-                  trailing: trailing,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: UrlText(
-                    text: model.description,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize:  14,
-                        fontWeight: FontWeight.w400),
-                    urlStyle: TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.w400),
-                  ),
-                )
-              ],
-            ),
+          height: 40,
+          child: GestureDetector(
+            onTap: () {
+              // If tweet is displaying on someone's profile then no need to navigate to profile again.
+//              if (isDisplayOnProfile) {
+//                return;
+//              }
+              Navigator.of(context).pushNamed('/ProfilePage/' + model?.userId);
+            },
+            child: customImage(context, model.user?.profilePic),
+          ),
         ),
         SizedBox(width: 20),
         Container(
@@ -96,17 +50,55 @@ class CardWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-
+                  Expanded(
+                    child: Row(
+                      children: <Widget>[
+                        UrlText(
+                          //text: model?.user?.displayName,
+                          text : "Sample User",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        SizedBox(width: 3),
+                         customIcon(
+                          context,
+                          icon: AppIcon.blueTick,
+                          istwitterIcon: true,
+                          iconColor: AppColor.primary,
+                          size: 13,
+                          paddingIcon: 3,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Flexible(
+                          child: customText(
+                            '${model.user?.userName}',
+                            style: userNameStyle,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        SizedBox(width: 4),
+//                        customText('· ${getChatTime(model.createdAt)}',
+//                            style: userNameStyle),
+                      ],
+                    ),
+                  ),
                   Container(child: trailing == null ? SizedBox() : trailing),
                 ],
               ),
               UrlText(
                 text: model.description,
                 style: TextStyle(
-                  color: Colors.black
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
                 ),
                 urlStyle:
-                    TextStyle(color: Colors.blue, fontWeight: FontWeight.w400),
+                TextStyle(color: Colors.blue, fontWeight: FontWeight.w400),
               ),
             ],
           ),

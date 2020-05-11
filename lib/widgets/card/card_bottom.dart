@@ -124,70 +124,6 @@ class CardBottom extends StatelessWidget {
     );
   }
 
-  Widget _likeCommentWidget(BuildContext context) {
-    bool isLikeAvailable = model.likeCount != null ? true : false;
-
-    bool isLikeRetweetAvailable = isLikeAvailable;
-    return Column(
-      children: <Widget>[
-        Divider(
-          endIndent: 10,
-          height: 0,
-        ),
-        AnimatedContainer(
-          padding:
-          EdgeInsets.symmetric(vertical: isLikeRetweetAvailable ? 12 : 0),
-          duration: Duration(milliseconds: 500),
-          child: !isLikeRetweetAvailable
-              ? SizedBox.shrink()
-              : Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-                  SizedBox.shrink(),
-              AnimatedCrossFade(
-                firstChild: SizedBox.shrink(),
-                secondChild: customText('Retweets', style: subtitleStyle),
-                crossFadeState: CrossFadeState.showFirst,
-                duration: Duration(milliseconds: 800),
-              ), SizedBox.shrink(),
-              InkWell(
-                onTap: () {
-                  onLikeTextPressed(context);
-                },
-                child: AnimatedCrossFade(
-                  firstChild: SizedBox.shrink(),
-                  secondChild: Row(
-                    children: <Widget>[
-                      customSwitcherWidget(
-                        duraton: Duration(milliseconds: 300),
-                        child: customText(model.likeCount.toString(),
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                            key: ValueKey(model.likeCount)),
-                      ),
-                      SizedBox(width: 5),
-                      customText('Likes', style: subtitleStyle)
-                    ],
-                  ),
-                  crossFadeState: !isLikeAvailable
-                      ? CrossFadeState.showFirst
-                      : CrossFadeState.showSecond,
-                  duration: Duration(milliseconds: 300),
-                ),
-              )
-            ],
-          ),
-        ),
-        !isLikeRetweetAvailable
-            ? SizedBox.shrink()
-            : Divider(
-          endIndent: 10,
-          height: 0,
-        ),
-      ],
-    );
-  }
-
   void addLikeToTweet(BuildContext context) {
     var state = Provider.of<FeedState>(
         context, listen: false
@@ -215,7 +151,6 @@ class CardBottom extends StatelessWidget {
         child: Column(
           children: <Widget>[
             _timeWidget(context),
-            _likeCommentWidget(context),
             _likeCommentsIcons(context, model)
           ],
         ));

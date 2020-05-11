@@ -126,6 +126,9 @@ class FeedState extends AppState {
       } else {
         // If user likes the post
         print(feed.likeCount);
+        if(feed.likeCount == null) {
+          feed.likeCount = 0;
+        }
         Firestore.instance.collection('recipes').document(feed.key).updateData({
           "likeCount": ( feed.likeCount += 1 ),
         });
